@@ -1,0 +1,116 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.containerBase {
+    background-color: dark-blue;
+    height: 100vh;
+}
+
+.roww {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+
+.infoASIDE {
+    margin: 0 auto;
+    position: relative;
+    width: 70%;
+    background-image: url("../assets/cielo-con-nubes.jpg")
+}
+
+
+.figure {
+    background-image: linear-gradient(to top right, #1a1a1a, transparent);
+    content: "";
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.figcaption {
+    margin-left: 10px;
+    font-weight: bold;
+    font-size: 3em;
+    position: absolute;
+    bottom: 0.7em;
+    color: #ffffff;
+}
+
+@media (max-width: 551px) {
+    .figcaption{
+        text-align: center;
+        font-size: 1em;
+        position: initial;
+    }
+}
+
+.texto{
+    margin-left: 10px;
+    font-weight: bold;
+    font-size: 1.2em;
+    color: white;
+    text-align: center;
+}
+.A{
+    font-size: 3em;
+}
+
+.containerCards {
+    background-color: #141E61;
+    background-image: linear-gradient(to top left, #1a1a1a, transparent);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
+    width: 80vw;
+    margin: 0 auto;
+    min-height: 100vh;
+}
+
+.card {
+    flex: 1 1 auto;
+    margin: 10px;
+    padding: 30px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    border-radius: 10px;
+}
+
+.card:hover {
+    background-position: right center;
+}
+
+.card-1 {
+    background-image: linear-gradient(to right, #d3b9fb 0%, #a6c1ee 51%, #d3b9fb 100%);
+}
+
+.card-2 {
+    background-image: linear-gradient(to right, #8488fa 0%, #8fd3f4 51%, #8488fa 100%);
+}
+
+.card-3 {
+    background-image: linear-gradient(to right, #4282eb 0%, #c2e9fb 51%, #4282eb 100%);
+}
+
+.card-4 {
+    background-image: linear-gradient(to right, #82aae2 0%, #4F81C7 51%, #82aae2 100%);
+}
+
+.card-5 {
+    background-image: linear-gradient(to right, #4F81C7 0%, #141E61 51%, #4F81C7 100%);
+}
+
+/* #82aae2 0%, #4F81C7 51%, #82aae2
+#4F81C7 0%, #141E61 51%, #4F81C7*/

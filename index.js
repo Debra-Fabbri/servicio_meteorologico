@@ -101,3 +101,44 @@ console.log(fecha.getDay());
 console.log(fecha.getDate());
 console.log(fecha.getMonth());
 console.log(fecha.getFullYear());
+
+/* Funcionamiento logico para el reloj
+Primeramente se debe crear una funcion que contenga varias variables 
+que nos permita traer cada elemento, como el dia, el mes, los minutos, etc
+Esto lo pondre en marcha con DOM
+
+Mientras ire definiendo como quiero el formato que se muestre al usuario:
+
+Este if lo que hace es transformar el reloj de 24hs a 12hs
+si pasan de las 12hs significa que estamos en la tarde (pm)
+sino son (am)
+
+    if(horas >= 12 ) {
+        horas = horas - 12;
+        ampm = 'PM';
+    } else {
+        ampm = 'AM';
+    }
+
+si son las 0 horas *que serian las 12 de la mañana*
+transforma ese 0 a 12 de la mañana (seria la madrugada)
+
+    if(horas == 0) {
+        horas = 12;
+    }
+
+ademas, cuando se este ejecutando el reloj, me va a aparecer en los
+minutos y los segundos un solo numero asi: 10hs 1min 3seg no? bueno, no queremos 
+que eso pase, queremos que se nos muestre asi: 10hs 01min 06seg
+con el 0 delante del minuto y del segundo, y cuando llegue a 10 cambie y no 
+aparezca, por lo tanto implementare un if de la siguiente manera
+
+    if (minutos < 10) {
+        minutos = "0" + minutos
+    }; 
+    
+    if (segundos < 10) {
+            segundos = "0" + segundos
+        }; 
+
+*/
