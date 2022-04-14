@@ -33,112 +33,176 @@ function validarUbicacion(ubicacion, volverUbicacion){
 validarUbicacion(ubicacion, volverUbicacion);
 
 //Luego cree una clase Provincia, que contiene un "constructor" donde le paso parametros que luego voy a utilizar en un Array 
+//function variarTemperatura(temperatura) {};
 
 class provincias{
-    constructor(nombre, temperatura, sensacionTermica, humedad, velocidadDelViento, presionDelAire, visibilidad){
+    constructor(nombre, estado, temperatura, sensacionTermica, humedad, velocidadDelViento, presionDelAire, visibilidad, indiceUV){
         this.nombre = nombre;
-        this.temperatura = temperatura;
+        this.estado = estado;
+        this.temperatura = parseFloat(temperatura);
         this.sensacionTermica = sensacionTermica;
         this.humedad = humedad;
         this.velocidadDelViento = velocidadDelViento;
-        this.presionDelAire = presionDelAire;
+        this.presionDelAire = parseFloat(presionDelAire);
         this.visibilidad = visibilidad;
+        this.indiceUV = indiceUV;
+    }
+
+    variarTemperatura(){
+        return (this.temperatura * 2.0 + 'Cº');
     }
 }
 
-//Este es el Array para Provincias, donde cada posicion es un objeto con sus atributos
+//Array para Provincias, donde cada posicion es un objeto con sus atributos
 
 let provinciasArgentinas = [
-    new provincias("Buenos Aires", "27ºC","20ºC", "59%", "2km/h", 4, "98%"),
-    new provincias("Ciudad Autonoma de Buenos Aires", "17ºC","20ºC", "39%", "6km/h", 6, "92%"),
-    new provincias("Catamarca", "26ºC","20ºC", "79%", "2km/h", 4, "88%"),
-    new provincias("Chaco", "20ºC","20ºC", "49%", "6km/h", 4, "90%"),
-    new provincias("Chubut", "20ºC","20ºC", "49%", "6km/h", 4, "90%"),
-    new provincias("Cordoba", "20ºC","20ºC", "49%", "6km/h", 4, "90%"),
-    new provincias("Corrientes", "20ºC","20ºC", "49%", "6km/h", 4, "90%"),
-    new provincias("Entre Rios", "20ºC","20ºC", "49%", "6km/h", 4, "90%"),
-    new provincias("Formosa", "20ºC", "20ºC", "49%", "6km/h", 4, "90%"),
-    new provincias("Jujuy", "20ºC","20ºC", "49%", "6km/h", 4, "90%"),
-    new provincias("La Pampa", "20ºC","20ºC", "49%", "6km/h", 4, "90%"),
-    new provincias("La Rioja", "20ºC","20ºC", "49%", "6km/h", 4, "90%"),
-    new provincias("Mendoza", "20ºC","20ºC", "49%", "6km/h", 4, "90%"),
-    new provincias("Misiones", "20ºC","20ºC", "49%", "6km/h", 4, "90%"),
-    new provincias("Neuquen", "20ºC","20ºC", "49%", "6km/h", 4, "90%"),
-    new provincias("Rio Negro", "20ºC","20ºC", "49%", "6km/h", 4, "90%"),
-    new provincias("Salta", "20ºC", "20ºC","49%", "6km/h", 4, "90%"),
-    new provincias("San Juan", "20ºC", "20ºC", "49%", "6km/h", 4, "90%"),
-    new provincias("San Luis", "20ºC","20ºC", "49%", "6km/h", 4, "90%"),
-    new provincias("Santa Cruz", "20ºC","20ºC", "49%", "6km/h", 4, "90%"),
-    new provincias("Santa Fe", "20ºC","20ºC", "49%", "6km/h", 4, "90%"),
-    new provincias("Santiago del Estero", "20ºC", "20ºC", "49%", "6km/h", 4, "90%"),
-    new provincias("Tierra del Fuego", "20ºC","20ºC", "49%", "6km/h", 4, "90%"),
-    new provincias("Tucuman", "20ºC","20ºC", "49%", "6km/h", 4, "90%"),
+    new provincias("Buenos Aires","Lluvioso", 22, 22, 76, 11, 1.021, 5, "Bajo, 2"),
+    new provincias("Ciudad Autonoma de Buenos Aires", "Mayormente soleado", 21, 21, 44, 13, 1.022, 10, "Bajo, 1"),
+    new provincias("Catamarca","Soleado", 23, 23, 49, 37, 1.017, 16, "Moderado, 4"),
+    new provincias("Chaco","Soleado", 23, 23, 48, 13, 1.020, 16, "Moderado, 3"),
+    new provincias("Chubut","Soleado", 22, 23, 22, 19, 1.010, 16, "Bajo, 2"),
+    new provincias("Cordoba","Soleado", 25, 26, 60, 3, 1.021, 10, "Alto, 6"),
+    new provincias("Corrientes","Soleado", 23, 23, 46, 11, 1.020, 10, "Moderado, 4"),
+    new provincias("Entre Rios","Soleado", 22, 21, 39, 11, 1.021, 16, "Moderado, 4"),
+    new provincias("Formosa","Soleado", 22, 22, 48, 18, 1.019, 10, "Bajo, 2"),
+    new provincias("Jujuy","Nublado",16, 16, 91, 8,  1.019, 10, "Bajo, 2"),
+    new provincias("La Pampa","Soleado", 23, 23, 30, 19, 1.019, 16, "Bajo, 2"),
+    new provincias("La Rioja","Parcialmente nublado", 23, 23, 59, 11, 1.016, 16,"Moderado, 3" ),
+    new provincias("Mendoza","Mayormente soleado", 23, 23, 31, 3, 1.016, 14, "Moderado, 3"),
+    new provincias("Misiones", "Soleado", 20, 20, 55, 14, 1.017, 14, "Bajo, 2"),
+    new provincias("Neuquen", "Mayormente soleado", 24, 24, 26, 18, 1.016, 10, "Bajo, 2"),
+    new provincias("Rio Negro", "Soleado", 22, 22, 27, 19, 1.016, 16, "Bajo, 1"),
+    new provincias("Salta","Nublado",17, 17, 72, 13,  1.022, 10, "Bajo, 1"),
+    new provincias("San Juan", "Mayormente soleado", 26, 26, 27, 10, 1.015, 14, "Moderado, 3"),
+    new provincias("San Luis", "Mayormente soleado", 24, 24, 27, 11, 1.017, 16, "Bajo, 2"),
+    new provincias("Santa Cruz","Mayormente nublado", 19, 19, 45, 21, 1.005, 16, "Bajo, 1"),
+    new provincias("Santa Fe","Mayormente soleado", 24, 24, 31, 5, 1.021 , 10, "Moderado, 3"),
+    new provincias("Santiago del Estero","Mayormente soleado", 22.4, 22, 31, 4, 1.018, 10, "Moderado, 4"),
+    new provincias("Tierra del Fuego","Parcialmente nublado", 11, 8, 55, 31, 999, 14, "Bajo, 1"),
+    new provincias("Tucuman", "Mayormente nublado", 22, 22, 54, 11, 1.020, 10, "Bajo, 2"),
 ]
 
 /*mediante un "Find" le digo --> "encontrame en "provinciasArgentinas" el nombre que 
 le pase anteriormente en el prompt (por eso tomo el "volverUbicacion") y devolveme, mostrandome
-en pantalla (de momento con console.log) todo lo que tenga ese nombre"*/
+en pantalla todo lo que tenga ese nombre*/
 
-const resultado = provinciasArgentinas.find(x => x.nombre === volverUbicacion)
+const resultado = provinciasArgentinas.find(x => x.nombre == volverUbicacion)
 console.log(resultado);
 
+//Para que el "resultado" se muestre en pantalla 
+var vistaA = document.getElementById("vistaA");
+vistaA.innerHTML =`<h1>${resultado.temperatura} Cº</h1>
+                <h5>Sensacion termica: ${resultado.sensacionTermica} Cº</h5>
+                <h3>${resultado.estado}</h3>
+                <h2>${resultado.nombre}, Argentina</h2>`;
 
-//Aca mediante "Date" voy a crear un reloj y fecha en tiempo real que se le muestre al usuario, mientras chequea "el clima"
+var humedad = document.getElementById("humedad");
+humedad.innerHTML =  `<h5>Humedad: ${resultado.humedad} % </h5>`;
 
-const fecha = new Date();
-console.log(new Date()); //por ahora se ejecuta con console.log, todo lo que viene despues se va a modificar con DOM 
+var velocidadViento = document.getElementById("velocidadViento");
+velocidadViento.innerHTML =  `<h5>Velocidad del Viento: ${resultado.velocidadDelViento} km/h </h5>`;
 
-console.log(fecha.getHours() - 12); //la hora va a estar en formato PM / AM, por eso se resta - 12
-console.log(fecha.getMinutes());
-console.log(fecha.getSeconds());
+var presionDelAire = document.getElementById("presionAire");
+presionDelAire.innerHTML =  `<h5>Presion del Aire: ${resultado.presionDelAire} mbar </h5>`;
 
-//Estos arreglos me van a ayudar a que cuando implemente DOM, la fecha se muestre en pantalla
+var visibilidad = document.getElementById("visibilidad");
+visibilidad.innerHTML =  `<h5>Visibilidad: ${resultado.visibilidad} km </h5>`;
 
-var semana = ['Domingo','Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado']
-var meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+var indiceUV = document.getElementById("indiceUV");
+indiceUV.innerHTML =  `<h5>Indice UV: ${resultado.indiceUV} % </h5>`;
 
-console.log(fecha.getDay());
-console.log(fecha.getDate());
-console.log(fecha.getMonth());
-console.log(fecha.getFullYear());
 
-/* Funcionamiento logico para el reloj
-Primeramente se debe crear una funcion que contenga varias variables 
-que nos permita traer cada elemento, como el dia, el mes, los minutos, etc
-Esto lo pondre en marcha con DOM
+/*PASOS PARA EJECUTAR Y MOSTRAR UN RELOJ Y FECHA EN TIEMPO REAL
 
-Mientras ire definiendo como quiero el formato que se muestre al usuario:
+    TENGAMOS EN CUENTA QUE LOS DATOS QUE SE TRAEN Y MUESTRAN SON DEL ORDENADOR DEL USUARIO
+    QUE ESTE VISITANDO LA PAGINA
 
-Este if lo que hace es transformar el reloj de 24hs a 12hs
-si pasan de las 12hs significa que estamos en la tarde (pm)
-sino son (am)
+    Para crear un reloj y fecha en tiempo real
+    utilizaremos una funcion arrow setInterval('...' , '...') ya que 
+    queremos que se ejecute cada segundo, la misma recibe 2 parametros:
+        1ero) va a ser una funcion que en su interior tiene declaradas
+            variables como: dia, mes, hora, mes, etc y arrays
+        2do) un numero, son los segundos (1000)*/
 
-    if(horas >= 12 ) {
-        horas = horas - 12;
-        ampm = 'PM';
-    } else {
-        ampm = 'AM';
-    }
-
-si son las 0 horas *que serian las 12 de la mañana*
-transforma ese 0 a 12 de la mañana (seria la madrugada)
-
-    if(horas == 0) {
-        horas = 12;
-    }
-
-ademas, cuando se este ejecutando el reloj, me va a aparecer en los
-minutos y los segundos un solo numero asi: 10hs 1min 3seg no? bueno, no queremos 
-que eso pase, queremos que se nos muestre asi: 10hs 01min 06seg
-con el 0 delante del minuto y del segundo, y cuando llegue a 10 cambie y no 
-aparezca, por lo tanto implementare un if de la siguiente manera
-
-    if (minutos < 10) {
-        minutos = "0" + minutos
-    }; 
+setInterval( () => {
     
-    if (segundos < 10) {
-            segundos = "0" + segundos
-        }; 
+    //Variables para la fecha
+    
+    /* document.getElementsByClassName("...") retorna un objeto similar a un array de los elementos 
+    hijos que tengan todos los nombres de clase indicados. Cuando es llamado sobre el objeto document, 
+    la busqueda se realiza en todo el document, incluido el nodo raíz
+    [0] significa en la posicion 0*/
+    
+        var fecha = document.getElementsByClassName("fecha")[0];
+        var diaSemana = new Date();
+        var diaSem = diaSemana.getDay();
+        var dia = diaSemana.getDate();
+        var mes = diaSemana.getMonth();
+        var year = diaSemana.getFullYear();
 
+    //Arrays para la semana y para los meses
+        var semana = ['Domingo','Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado']
+        var meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+    
+    //La propiedad Element.innerHTML devuelve o establece la sintaxis HTML describiendo los descendientes del elemento.
+    //Al establecerse se reemplaza la sintaxis HTML del elemento por la nueva.
+        fecha.innerHTML = `${semana[diaSem]} ${dia} de ${meses[mes]} del ${year}`;
+
+    //Variables para el reloj
+        var reloj = document.getElementsByClassName("reloj")[0];
+        var tiempoActual = new Date();
+        var hora = tiempoActual.getHours();
+        var ampm;
+    
+    //Creo condicionales 
+    /*Este if lo que hace es transformar el reloj de 24hs a 12hs
+    si pasan de las 12hs significa que estamos en la tarde (pm)
+    sino son las horas de mañana (am)*/
+
+            if(hora >= 12 ) {
+                hora = hora - 12;
+                ampm = 'PM';
+            } else {
+                ampm = 'AM';
+            }
+
+            if(hora == 0) {
+                hora = 12;
+            }
+    
+    /*cuando se este ejecutando el reloj, va a aparecer en los
+    minutos y los segundos un solo numero asi: 10hs 1min 3seg.  bueno, no queremos 
+    que eso pase, queremos que se nos muestre asi: 10hs 01min 06seg.
+    con el 0 delante del minuto y del segundo, y cuando llegue a 10 cambie y no 
+    aparezca, por lo tanto implementamos un if de la siguiente manera*/
+
+        var minutos = tiempoActual.getMinutes();
+    
+            if (minutos < 10) {
+                minutos = "0" + minutos
+            }; 
+
+        var segundos = tiempoActual.getSeconds();
+        
+            if (segundos < 10) {
+                segundos = "0" + segundos
+            }; 
+
+        reloj.innerHTML = `${hora}:${minutos}:${segundos} ${ampm}`;
+
+}, 1000);
+
+/*Agrego un evento "click", para ello, creo varias "const" que me permiten, mediante 
+document.getElementById(''); buscar en el documento el Id correspondiente*/
+const entrarButton = document.getElementById('entrar');
+const volverButton = document.getElementById('volver');
+const container = document.getElementById('container');
+
+/* El método addEventListener() permite definir qué evento escuchar sobre cualquier elemento seleccionado.
+El primer parámetro corresponde al nombre del evento y el segundo a la función de respuesta.
+En las siguientes lineas se ejecuta lo siguiente:
+en la primera: cuando escuches que se haga "click" en el boton que tiene como id "signUp" move, en este caso, el panel hacia la derecha
+en la segunda: cuando escuches que se haga "click" en el boton que tiene como id "signIn" remove ese panel a su posicion original
 */
+entrarButton.addEventListener('click', () => container.classList.add('right-panel-active'));
+volverButton.addEventListener('click', () => container.classList.remove('right-panel-active'));

@@ -4,38 +4,115 @@
     box-sizing: border-box;
 }
 
-.containerBase {
-    background-color: dark-blue;
+
+h1 {
+    font-weight: bold;
+    margin: 0;
+}
+
+
+p {
+    font-size: 14px;
+    font-weight: 100;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    margin: 20px 0 30px;
+}
+
+
+.container {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    /*position: relative*/
+    overflow: hidden;
     height: 100vh;
 }
 
-.roww {
+.temperature-container {
+    background: #fff;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    padding: 0 50px;
     height: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+button {
+    border-radius: 20px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+button:focus {
+    outline: none;
+}
+
+button.ghost {
+    background: transparent;
+    border-color: #fff;
+}
+
+.form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all 0.6s ease-in-out;
+    background-image: url("../assets/cielo-con-nubes.jpg");
+}
+
+.principal-container {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+.detras-container {
+    left: 0;
+    width: 50%;
+    opacity: 0;
+    z-index: 1;
 }
 
 
 .infoASIDE {
-    margin: 0 auto;
-    position: relative;
     width: 70%;
-    background-image: url("../assets/cielo-con-nubes.jpg")
+
+    color: white;
 }
 
 
 .figure {
     background-image: linear-gradient(to top right, #1a1a1a, transparent);
     content: "";
-    height: 100%;
     position: absolute;
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.figcaption {
+#vistaA {
+    margin-left: 10px;
+    font-weight: bold;
+    font-size: 1.2em;
+    color: white;
+    text-align: center;
+}
+
+#vistaA h2 {
     margin-left: 10px;
     font-weight: bold;
     font-size: 3em;
@@ -45,33 +122,149 @@
 }
 
 @media (max-width: 551px) {
-    .figcaption{
+    #vistaA h2 {
         text-align: center;
         font-size: 1em;
         position: initial;
     }
 }
 
-.texto{
-    margin-left: 10px;
-    font-weight: bold;
-    font-size: 1.2em;
+/*RELOJ + FECHA */
+.wrap {
+    width: 90%;
+    max-width: 1000px;
     color: white;
-    text-align: center;
-}
-.A{
-    font-size: 3em;
+    /*margin: auto;*/
+    font-size: 16px;
 }
 
+.widget {
+    margin: 2em;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.widget p {
+    display: inline-block;
+    line-height: 1em;
+}
+
+.fecha {
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 5px;
+    background: rgba(0, 0, 0, .5);
+    padding: 20px;
+    width: 70%;
+}
+
+.reloj {
+    font-size: 26px;
+    text-align: center;
+    width: 70%;
+    padding: 20px;
+    background: rgba(0, 0, 0, .5);
+}
+
+.reloj .caja-segundos {
+    display: inline-block;
+}
+
+.reloj .segundos,
+.reloj .ampm {
+    font-size: 2rem;
+    display: block;
+}
+
+
+.overlay-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.6s ease-in-out;
+    z-index: 100;
+}
+
+.overlay {
+    background: linear-gradient(to right, #4F81C7 0%, #141E61 51%, #4F81C7 100%);
+    color: #fff;
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+}
+
+.overlay-panel {
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 40px;
+    height: 100%;
+    width: 50%;
+    text-align: center;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+}
+
+.overlay-right {
+    right: 0;
+    transform: translateX(0);
+}
+
+.overlay-left {
+    transform: translateX(-20%);
+}
+
+/* Animaciones */
+
+/* Mover el panel principal a la derecha */
+.container.right-panel-active .principal-container {
+    transform: translateX(100%);
+}
+
+/*  Mover superposición (overlay) a la izquierda */
+.container.right-panel-active .overlay-container {
+    transform: translateX(-100%);
+}
+
+/* Traiga el pronostico extendido sobre el panel principal */
+.container.right-panel-active .detras-container {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+}
+
+/* Mover superposición (overlay) de nuevo a la derecha */
+.container.right-panel-active .overlay {
+    transform: translateX(50%);
+}
+
+.container.right-panel-active .overlay-left {
+    transform: translateX(0);
+}
+
+.container.right-panel-active .overlay-right {
+    transform: translateX(20%);
+}
+
+
 .containerCards {
-    background-color: #141E61;
-    background-image: linear-gradient(to top left, #1a1a1a, transparent);
     display: flex;
     justify-content: center;
     align-items: center;
     align-content: center;
     flex-wrap: wrap;
-    width: 80vw;
+    width: 80vh;
     margin: 0 auto;
     min-height: 100vh;
 }
