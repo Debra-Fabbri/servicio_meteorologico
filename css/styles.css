@@ -64,12 +64,38 @@ button.ghost {
     border-color: #fff;
 }
 
+.buscar {
+    border-radius: 20px;
+    border: 1px solid #73D2F3;
+    background: #73D2F3;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+}
+
+.buscar:hover {
+    background-color: #141E61;
+}
+
 .form-container {
     position: absolute;
     top: 0;
     height: 100%;
     transition: all 0.6s ease-in-out;
     background-image: url("../assets/cielo-con-nubes.jpg");
+}
+
+input {
+    background: #fff;
+    border: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    border-radius: 40px;
+    width: 50%;
 }
 
 .principal-container {
@@ -124,7 +150,7 @@ button.ghost {
 @media (max-width: 551px) {
     #vistaA h2 {
         text-align: center;
-        font-size: 1em;
+        font-size: 20px;
         position: initial;
     }
 }
@@ -264,7 +290,6 @@ button.ghost {
     align-items: center;
     align-content: center;
     flex-wrap: wrap;
-    width: 80vh;
     margin: 0 auto;
     min-height: 100vh;
 }
@@ -307,3 +332,64 @@ button.ghost {
 
 /* #82aae2 0%, #4F81C7 51%, #82aae2
 #4F81C7 0%, #141E61 51%, #4F81C7*/
+
+@media (max-width: 991px) {
+    .card {
+        width: 40%;
+        height: 100px;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        padding: 10px;
+        justify-content: center;
+    }
+    h5 {
+        font-size: 16px;
+    }
+    input {
+        width: 100%;
+    }
+    .buscar{
+        width: 100%;
+    }
+}
+
+@media (max-width: 667px){
+    .card {
+        width: 16vh;
+        height: 70px;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        padding: 10px;
+        justify-content: center;
+    }
+    .containerCards {
+        margin: 10px;
+    }
+    input {
+        width: 80%;
+    }
+    .buscar{
+        width: 80%;
+    }
+    .ghost{
+        padding: 10px;
+    }
+    .buscar{
+        width: 80%;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+    }
+}
+
+@media (max-width: 500px){
+    .fecha{
+        width: 150px;
+    }
+    .reloj{
+        width: 150px;
+    }
+}
