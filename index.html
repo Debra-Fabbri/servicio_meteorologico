@@ -10,83 +10,103 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/windbarb.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <link rel="stylesheet" href="./css/styles.css">
 </head>
 
-    <body>
-        <main>
-            <div id="container" class="container">
-                <div class="form-container detras-container">
+<body><!--onload="quellueva()"-->
+    <main>
+        <div id="container" class="container">
+            <!--<div class="rainyday">
+                <img id="background" alt="background" src=""/>
+            </div>-->
+            <div class="form-container detras-container">
+                <div class="temperature-container">
                     <div class="temperature-container">
-                        <div class="temperature-container">
-                            <h2>En construccion :P</h2>
-                        </div>
+                        <figure class="highcharts-figure">
+                            <div id="container2"></div>
+                            <p class="highcharts-description">
+                                (Las púas de viento se utilizan para visualizar la dirección y la velocidad del viento.)
+                            </p>
+                        </figure>
                     </div>
                 </div>
-                <div class="form-container principal-container">
-                    <div class="infoASIDE">
-                        <div class="wrap">
-                            <div class="figure">
-                                <div id="vistaA"></div>
-                                <!--Contenedor de la fecha + reloj-->
-                                <div class="widget">
-                                    <div class="fecha">
-                                        <p id="diaSemana" class="diaSemana"></p>
-                                        <p id="dia" class="dia"></p>
-                                        <p id="mes" class="mes"></p>
-                                        <p id="year" class="year"></p>
-                                    </div>
-                                    <div class="reloj">
-                                        <p id="hora" class="hora"></p>
-                                        <p id="minutos" class="minutos"></p>
-                                        <div class="caja-segundos">
-                                            <p id="ampm" class="ampm"></p>
-                                            <p id="segundos" class="segundos"></p>
-                                        </div>
+            </div>
+            <div class="form-container principal-container">
+                <div class="infoASIDE">
+                    <div class="wrap">
+                        <div class="figure">
+                            <div id="vistaA"></div>
+                            <!--Contenedor de la fecha + reloj-->
+                            <div class="widget">
+                                <div class="fecha">
+                                    <p id="diaSemana" class="diaSemana"></p>
+                                    <p id="dia" class="dia"></p>
+                                    <p id="mes" class="mes"></p>
+                                    <p id="year" class="year"></p>
+                                </div>
+                                <div class="reloj">
+                                    <p id="hora" class="hora"></p>
+                                    <p id="minutos" class="minutos"></p>
+                                    <div class="caja-segundos">
+                                        <p id="ampm" class="ampm"></p>
+                                        <p id="segundos" class="segundos"></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="overlay-container">
-                    <div class="overlay">
-                        <div class="overlay-panel overlay-left">
-                            <h1>Aca va</h1>
-                            <p> el pronostico extendido de la semana</p>
+            </div>
+            <div class="overlay-container">
+                <div class="overlay">
+                    <div class="overlay-panel overlay-left">
+                        <div class="containerCards">
+                            <figure id = "lunes" class="snip1581"></figure>
+                            <figure id = "martes" class="snip1581 hover"></figure>
+                            <figure id = "miercoles" class="snip1581"></figure>
+                            <figure id = "jueves" class="snip1581"></figure>
+                            <figure id = "viernes" class="snip1581"></figure>
                             <button id="volver" class="ghost">
                                 Volver
                             </button>
                         </div>
-                        <div class="overlay-panel overlay-right">
-                            <div class="containerCards">
-                                <input id ="name" class="m-2" type="search" placeholder="Search" aria-label="Search">
-                                <button id="buscar" class="buscar"> 
-                                    Buscar 
-                                </button>
-                                <div id="humedad" class="card card-1"></div>
-                                <div id="velocidadViento" class="card card-2"></div>
-                                <div id="presionAire" class="card card-3"></div>
-                                <div id="visibilidad" class="card card-4"></div>
-                                <div id="indiceUV" class="card card-5"></div>
-                                <button id="entrar" class="ghost">
-                                    Ver pronostico extendido
-                                </button>
-                            </div>
+                    </div>
+                    <div class="overlay-panel overlay-right">
+                        <div class="containerCards">
+                            <input id="name" class="m-2" type="search" placeholder="Search" aria-label="Search">
+                            <button id="buscar" class="buscar">
+                                Buscar
+                            </button>
+                            <div id="humedad" class="card card-1"></div>
+                            <div id="velocidadViento" class="card card-2"></div>
+                            <div id="presionAire" class="card card-3"></div>
+                            <div id="visibilidad" class="card card-4"></div>
+                            <div id="indiceUV" class="card card-5"></div>
+                            <button id="entrar" class="ghost">
+                                Ver pronostico extendido
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-        </main>
-        <script>
-            AOS.init(
-                { once: true }
-            );
+        </div>
+    </main>
+    <script>
+        AOS.init(
+            { once: true }
+        );
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
         </script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
-            </script>
-        <script src="./index.js"></script>
-    </body>
+    <script src="./index.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/rainyday.js/0.1.2/rainyday.min.js"></script>
+</body>
 
 </html>
