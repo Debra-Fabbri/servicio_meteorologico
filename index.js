@@ -15,20 +15,36 @@ dentro del if y donde mediante un prompt nos pide ingresar la provincia y luego 
 finalmente lo guarda en el localStorage, una vez que ya este guardado cuando el usuario vuelve
 a reiniciar la pagina o paga la computadora y entra, ya reconoce que hay algo y se muestra un "alert" de bienvenida */
 
+//Modificamos el prototype de RainyDay para agregar la funcion de stop
+RainyDay.prototype.destroy = function () {
+    this.canvas.parentNode.removeChild(this.canvas)
+  
+    if (this.bckStyle) {
+      this.imgSource.style.background = this.bckStyle.background
+    }
+  
+    Object.keys(this).forEach(function (item) {
+      delete this[item]
+    })
+  }
+
 let usuario = localStorage.getItem('usuario');
 let ubicacion = localStorage.getItem('ubicacion');
 let volverUbicacion = localStorage.getItem('ubicacion');
 
-if (!ubicacion == true) {
-    usuario = prompt("Bienvenid@, Por favor ingrese su nombre");
-    ubicacion = prompt(`Hola ${usuario}!! Por favor, Ingrese su provincia predeterminada dentro de Argentina.`);
-    volverUbicacion = prompt("Por favor, confirme nuevamente la provincia ingresada.");
-    localStorage.setItem('usuario', usuario);
-    localStorage.setItem('ubicacion', ubicacion);
-} else {
-    alert('Bienvenid@ nuevamente');
+function onPageLoad() {
+    if (!ubicacion == true) {
+        usuario = prompt("Bienvenid@, Por favor ingrese su nombre");
+        ubicacion = prompt(`Hola ${usuario}!! Por favor, Ingrese su provincia predeterminada dentro de Argentina.`);
+        volverUbicacion = prompt("Por favor, confirme nuevamente la provincia ingresada.");
+        localStorage.setItem('usuario', usuario);
+        localStorage.setItem('ubicacion', ubicacion);
+        setearClima();
+    } else {
+        alert('Bienvenid@ nuevamente');
+        setearClima();
+    }
 }
-
 //Esta funcion nos permite "validar" esa ubicacion/provincia para que posteriormente me traiga los datos de la misma
 //Ademas le da la oportunidad al usuario de que si no quiere la que ingreso, la puede cambiar
 /*La funcion del while es la siguiente: mientras la "ubicacion" ingresada sea distinta de la "volverUbicacion" 
@@ -126,45 +142,6 @@ visibilidad.innerHTML = `<h5>Visibilidad: ${resultado.visibilidad} km </h5>`;
 const indiceUV = document.getElementById("indiceUV");
 indiceUV.innerHTML = `<h5>Indice UV: ${resultado.indiceUV} % </h5>`;
 
-const lunes = document.getElementById("lunes");
-lunes.innerHTML = `<img src="images/lluvia2.jpg"  alt="">
-                    <figcaption>
-                        <h3 class="title1">18 Cº</h3>
-                        <h3 class="title2">Lluvioso</h3>
-                        <h3 class="title3">Lunes</h3>
-                    </figcaption><a href="#"></a>`;
-
-var martes = document.getElementById("martes");
-martes.innerHTML = `<img src="images/nublado2.jpg"  alt="">
-                    <figcaption>
-                        <h3 class="title1">24 Cº</h3>
-                        <h3 class="title2">Nublado</h3>
-                        <h3 class="title3">Martes</h3>
-                    </figcaption><a href="#"></a>`;
-
-var miercoles = document.getElementById("miercoles");
-miercoles.innerHTML = `<img src="images/cielo-sol.jpg"  alt="">
-                        <figcaption>
-                            <h3 class="title1">27 Cº</h3>
-                            <h3 class="title2">Soleado</h3>
-                            <h3 class="title3">Miercoles</h3>
-                        </figcaption><a href="#"></a>`;
-
-var jueves = document.getElementById("jueves");
-jueves.innerHTML = `<img src="images/cielo-sol.jpg"  alt="">
-                    <figcaption>
-                        <h3 class="title1">27 Cº</h3>
-                        <h3 class="title2">Soleado</h3>
-                        <h3 class="title3">Jueves</h3>
-                    </figcaption><a href="#"></a>`;
-
-var viernes = document.getElementById("viernes");
-viernes.innerHTML = `<img  src="images/nublado2.jpg"  alt="">
-                    <figcaption>
-                        <h3 class="title1">23 Cº</h3>
-                        <h3 class="title2">Nublado</h3>
-                        <h3 class="title3">Viernes</h3>
-                    </figcaption><a href="#"></a>`
 
 /*Esta funcion permite al usuario una vez elegida su provincia como predeterminda y quiera ver 
 que sucede en las otras, mediente un input se escribe la provincia que se quiera buscar y al hacer click en el boton
@@ -198,6 +175,8 @@ document.getElementById('buscar').addEventListener("click", function () {
 
         var indiceUV = document.getElementById("indiceUV");
         indiceUV.innerHTML = `<h5>Indice UV: ${city.indiceUV} % </h5>`;
+
+        setearClima(false);
     } else {
         //alert('Esa provincia no se encuentra, por favor, vuela a intentarlo')
         Swal.fire({
@@ -407,24 +386,35 @@ if (snippet.length) {
     });
 }
 
-/*const lluvioso = provinciasArgentinas.filter(j => j.estado === "Lluvioso");
-const soleado = provinciasArgentinas.filter(l => l.estado === "Soleado");
-console.log(lluvioso);
-console.log(soleado);
+/*
+var rainyday = undefined;
+function setearClima(test = true) {
+    const lluvioso = provinciasArgentinas.filter(j => j.estado === "Lluvioso");
+    //const soleado = provinciasArgentinas.filter(l => l.estado === "Soleado");
+    
+    if(test == lluvioso) {
+        quellueva();
+    } else {
+        rainyday.destroy();
+        var image = document.getElementById('background');
+        image.onload = null;
+        image.src = "images/cielo-sol.jpg";
+    }
+}
 
 function quellueva() {
     var image = document.getElementById('background');
     image.onload = function () {
-        var engine = new RainyDay({
+        rainyday = new RainyDay({
             image: this,
             blur: 10,
             opacity: 1,
             gravityAngle: Math.PI / 2,
             gravityAngleVariance: 0
         });
-        engine.gravity = engine.GRAVITY_NON_LINEAR;
-        engine.trail = engine.TRAIL_SMUDGE;
-        engine.rain([
+        rainyday.gravity = rainyday.GRAVITY_NON_LINEAR;
+        rainyday.trail = rainyday.TRAIL_SMUDGE;
+        rainyday.rain([
             [0, 3, 8],
             [3, 8, 1]
         ], 50);
@@ -432,5 +422,64 @@ function quellueva() {
     image.crossOrigin = 'anonymous';
     image.src = 'images/bg1.jpg';
 }
+*/
+//quellueva();
 
-quellueva();*/
+//----------------------API FETCH----------------------------------------------
+
+const weatherForecastEl = document.getElementById('weather-forecast');
+const currentTempEl = document.getElementById('current-temp');
+
+
+const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+const API_KEY ='f821be9dc0701e6d3e96177924d90672';
+
+
+getWeatherData()
+function getWeatherData () {
+    navigator.geolocation.getCurrentPosition((success) => {
+        
+        let {latitude, longitude } = success.coords;
+
+        fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely&units=metric&appid=f821be9dc0701e6d3e96177924d90672`).then(res => res.json()).then(data => {
+
+        console.log(data)
+        showWeatherData(data);
+        })
+
+    })
+}
+
+function showWeatherData (data){
+
+    let otherDayForcast = ''
+    data.daily.forEach((day, idx) => {
+        if(idx == 0){
+            currentTempEl.innerHTML = `
+            <img src="http://openweathermap.org/img/wn//${day.weather[0].icon}@4x.png" alt="weather icon" class="w-icon">
+            <div class="other">
+                <div class="day">${window.moment(day.dt*1000).format('dddd')}</div>
+                <div class="temp">Night - ${day.temp.night}&#176;C</div>
+                <div class="temp">Day - ${day.temp.day}&#176;C</div>
+            </div>
+            
+            `
+        }else{
+            otherDayForcast += `
+            <div class="weather-forecast-item">
+                <div class="day">${window.moment(day.dt*1000).format('ddd')}</div>
+                <img src="http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png" alt="weather icon" class="w-icon">
+                <div class="temp">Night - ${day.temp.night}&#176;C</div>
+                <div class="temp">Day - ${day.temp.day}&#176;C</div>
+            </div>
+            
+            `
+        }
+    })
+
+
+    weatherForecastEl.innerHTML = otherDayForcast;
+}
+
