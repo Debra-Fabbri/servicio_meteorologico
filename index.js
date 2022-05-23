@@ -2,12 +2,6 @@
 de la ubicacion que elija el usuario, le trae un dato del array, donde mediante DOM imprime
 la temperatura, humedad, etc, todo lo que hay guardado en ese array
 
-Queremos una persistencia de estos datos en el navegador, para eso, usaremos "localStorage"
-esto nos va a permitir que cuando el usuario entre por primera vez y escriba su provincia elijiendola
-como predeterminada, cuando cierre la pagina, esta misma informacion va a persistir cuando vuelva a 
-acceder a la misma.
-let usuario = localStorage.getItem('usuario');*/
-
 /*Para ello, primero comenzamos declarando una clase Provincia, que contiene un "constructor" 
 donde le paso parametros que luego voy a utilizar en un Array */
 
@@ -65,7 +59,6 @@ document.getElementById('buscar').addEventListener("click", function () {
     const city = provinciasArgentinas.find(city => city.nombre.toLowerCase() === name);
 
     if (city) {
-        //alert(`La provincia buscada es ${name}`);
         var vistaA = document.getElementById("vistaA");
         vistaA.innerHTML = `<h1>${city.temperatura} Cº</h1>
                 <h5>Sensacion termica: ${city.sensacionTermica} Cº</h5>
@@ -87,16 +80,16 @@ document.getElementById('buscar').addEventListener("click", function () {
         var indiceUV = document.getElementById("indiceUV");
         indiceUV.innerHTML = `<h5>Indice UV: ${city.indiceUV} % </h5>`;
 
-        setearClima(false);
+        document.getElementById('cartas').style.display = 'block';
+        document.getElementById('cartas').style.display = 'flex';
+
     } else {
-        //alert('Esa provincia no se encuentra, por favor, vuela a intentarlo')
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: 'La informacion solicitada no se encuentra, por favor, vuela a intentarlo!',
         })
     };
-    //aca dentro tambien debe ir la libreria rainyday.js
 });
 
 /*PASOS PARA EJECUTAR Y MOSTRAR UN RELOJ Y FECHA EN TIEMPO REAL
@@ -157,6 +150,10 @@ setInterval(() => {
     if (segundos < 10) {
         segundos = "0" + segundos
     };
+
+    if(hora == 0) {
+        hora = 12;
+    }
 
     document.getElementsByClassName("reloj")[0].innerHTML = `${hora}:${minutos}:${segundos} ${ampm}`;
 
