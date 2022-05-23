@@ -18,12 +18,9 @@
     <link rel="stylesheet" href="./css/styles.css">
 </head>
 
-<body onload="onPageLoad()">
+<body>
     <main>
         <div id="container" class="container">
-            <div class="rainyday">
-                <img id="background" alt="background"/>
-            </div>
             <!---->
             <div class="form-container detras-container">
                 <div class="temperature-container">
@@ -61,6 +58,7 @@
                             </div>
                         </div>
                     </div>
+                    <span class="simulador">Simulador, todos los derechos reservados</span>
                 </div>
             </div>
             <div class="overlay-container">
@@ -121,7 +119,8 @@
                     </div>
                     <div class="overlay-panel overlay-right">
                         <div class="containerCards">
-                            <input id="name" class="m-2" type="search" placeholder="Search" aria-label="Search">
+                            <h2 class="welcome">¡Bienvenid@ al Servicio Meteorológico Argentino!</h2>
+                            <input id="name" class="m-2" type="search" placeholder="Ingresar Provincia" aria-label="Search">
                             <button id="buscar" class="buscar">
                                 Buscar
                             </button>

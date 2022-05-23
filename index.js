@@ -1,73 +1,15 @@
-/*cree un algoritmo que tiene una entrada de datos con un prompt que pide una ubicacion y depende 
+/*cree un algoritmo que tiene mediante un input se escribe la provincia dentro de argentina y depende 
 de la ubicacion que elija el usuario, le trae un dato del array, donde mediante DOM imprime
-la temperatura, humedad, etc, todo lo que hay guardado en ese array*/
+la temperatura, humedad, etc, todo lo que hay guardado en ese array
 
-//Comencemos
-
-/*Queremos una persistencia de estos datos en el navegador, para eso, usaremos "localStorage"
+Queremos una persistencia de estos datos en el navegador, para eso, usaremos "localStorage"
 esto nos va a permitir que cuando el usuario entre por primera vez y escriba su provincia elijiendola
 como predeterminada, cuando cierre la pagina, esta misma informacion va a persistir cuando vuelva a 
 acceder a la misma.
+let usuario = localStorage.getItem('usuario');*/
 
-declaro con "let" mis variables que van a estar en el localStorage
-la negacion de ubicacion significa que si nunca a entrado a la pagina desde su navegador, entrara
-dentro del if y donde mediante un prompt nos pide ingresar la provincia y luego que la confirme nuevamente, y 
-finalmente lo guarda en el localStorage, una vez que ya este guardado cuando el usuario vuelve
-a reiniciar la pagina o paga la computadora y entra, ya reconoce que hay algo y se muestra un "alert" de bienvenida */
-
-//Modificamos el prototype de RainyDay para agregar la funcion de stop
-RainyDay.prototype.destroy = function () {
-    this.canvas.parentNode.removeChild(this.canvas)
-  
-    if (this.bckStyle) {
-      this.imgSource.style.background = this.bckStyle.background
-    }
-  
-    Object.keys(this).forEach(function (item) {
-      delete this[item]
-    })
-  }
-
-let usuario = localStorage.getItem('usuario');
-let ubicacion = localStorage.getItem('ubicacion');
-let volverUbicacion = localStorage.getItem('ubicacion');
-
-function onPageLoad() {
-    if (!ubicacion == true) {
-        usuario = prompt("Bienvenid@, Por favor ingrese su nombre");
-        ubicacion = prompt(`Hola ${usuario}!! Por favor, Ingrese su provincia predeterminada dentro de Argentina.`);
-        volverUbicacion = prompt("Por favor, confirme nuevamente la provincia ingresada.");
-        localStorage.setItem('usuario', usuario);
-        localStorage.setItem('ubicacion', ubicacion);
-        setearClima();
-    } else {
-        alert('Bienvenid@ nuevamente');
-        setearClima();
-    }
-}
-//Esta funcion nos permite "validar" esa ubicacion/provincia para que posteriormente me traiga los datos de la misma
-//Ademas le da la oportunidad al usuario de que si no quiere la que ingreso, la puede cambiar
-/*La funcion del while es la siguiente: mientras la "ubicacion" ingresada sea distinta de la "volverUbicacion" 
-se va a repetir hasta que sean "exactamente Iguales", entonces sale de ese bucle y vemos que entramos o accedimos 
-a la pagina con su informacion"*/
-
-function validarUbicacion(ubicacion, volverUbicacion) {
-
-    while (ubicacion !== volverUbicacion) {
-
-        alert("Ups! No ha ingresado la misma ubicación, por favor vuelva a intentarlo");
-        ubicacion = prompt("Hola! Por favor, Ingrese una provincia dentro de Argentina.");
-        volverUbicacion = prompt("Por favor, confirme nuevamente la provincia ingresada.");
-    }
-
-}
-
-//para llamar a la funcion, lo hago de la siguiente manera:
-
-validarUbicacion(ubicacion, volverUbicacion);
-
-//Luego creo una clase Provincia, que contiene un "constructor" donde le paso parametros que luego voy a utilizar en un Array 
-
+/*Para ello, primero comenzamos declarando una clase Provincia, que contiene un "constructor" 
+donde le paso parametros que luego voy a utilizar en un Array */
 
 class provincias {
     constructor(nombre, estado, temperatura, sensacionTermica, humedad, velocidadDelViento, presionDelAire, visibilidad, indiceUV) {
@@ -112,39 +54,8 @@ const provinciasArgentinas = [
     new provincias("Tucuman", "Mayormente nublado", 22, 22, 54, 11, 1.020, 10, "Bajo, 2"),
 ]
 
-/*mediante un "Find" le digo --> "encontrame en "provinciasArgentinas" el nombre que 
-le pase anteriormente en el prompt y devolveme, mostrandome en pantalla todo lo que tenga 
-ese nombre, (siendo que esta misma informacion se va a guardar en el localStorage)*/
 
-const resultado = provinciasArgentinas.find(x => x.nombre == volverUbicacion)
-console.log(resultado);
-
-
-//Para que el "resultado" se muestre en pantalla 
-const vistaA = document.getElementById("vistaA");
-vistaA.innerHTML = `<h1>${resultado.temperatura} Cº</h1>
-                <h5>Sensacion termica: ${resultado.sensacionTermica} Cº</h5>
-                <h3>${resultado.estado}</h3>
-                <h2>${resultado.nombre}, Argentina</h2>`;
-
-const humedad = document.getElementById("humedad");
-humedad.innerHTML = `<h5>Humedad: ${resultado.humedad} % </h5>`;
-
-const velocidadViento = document.getElementById("velocidadViento");
-velocidadViento.innerHTML = `<h5>Velocidad del Viento: ${resultado.velocidadDelViento} km/h </h5>`;
-
-const presionDelAire = document.getElementById("presionAire");
-presionDelAire.innerHTML = `<h5>Presion del Aire: ${resultado.presionDelAire} mbar </h5>`;
-
-const visibilidad = document.getElementById("visibilidad");
-visibilidad.innerHTML = `<h5>Visibilidad: ${resultado.visibilidad} km </h5>`;
-
-const indiceUV = document.getElementById("indiceUV");
-indiceUV.innerHTML = `<h5>Indice UV: ${resultado.indiceUV} % </h5>`;
-
-
-/*Esta funcion permite al usuario una vez elegida su provincia como predeterminda y quiera ver 
-que sucede en las otras, mediente un input se escribe la provincia que se quiera buscar y al hacer click en el boton
+/*mediente un input se escribe la provincia que se quiera buscar y al hacer click en el boton
 esta busca dentro del Array de provinciasArgentinas mediante un find la misma y luego con un if creo la condicion de que 
 si la encuentra imprima su informacion y si no la encuentra, sale un alert diciendo que no esta.
 lo que hace "toLowerCase" es pasar todas las letras a minuscula, para que si el usuario escribe todo en minuscula o 
@@ -386,44 +297,6 @@ if (snippet.length) {
     });
 }
 
-/*
-var rainyday = undefined;
-function setearClima(test = true) {
-    const lluvioso = provinciasArgentinas.filter(j => j.estado === "Lluvioso");
-    //const soleado = provinciasArgentinas.filter(l => l.estado === "Soleado");
-    
-    if(test == lluvioso) {
-        quellueva();
-    } else {
-        rainyday.destroy();
-        var image = document.getElementById('background');
-        image.onload = null;
-        image.src = "images/cielo-sol.jpg";
-    }
-}
-
-function quellueva() {
-    var image = document.getElementById('background');
-    image.onload = function () {
-        rainyday = new RainyDay({
-            image: this,
-            blur: 10,
-            opacity: 1,
-            gravityAngle: Math.PI / 2,
-            gravityAngleVariance: 0
-        });
-        rainyday.gravity = rainyday.GRAVITY_NON_LINEAR;
-        rainyday.trail = rainyday.TRAIL_SMUDGE;
-        rainyday.rain([
-            [0, 3, 8],
-            [3, 8, 1]
-        ], 50);
-    };
-    image.crossOrigin = 'anonymous';
-    image.src = 'images/bg1.jpg';
-}
-*/
-//quellueva();
 
 //----------------------API FETCH----------------------------------------------
 
