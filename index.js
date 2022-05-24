@@ -49,15 +49,20 @@ const provinciasArgentinas = [
 ]
 
 
-/*mediente un input se escribe la provincia que se quiera buscar y al hacer click en el boton
+/*mediente un input se escribe la provincia que se quiera buscar y al hacer click en el boton,
 esta busca dentro del Array de provinciasArgentinas mediante un find la misma y luego con un if creo la condicion de que 
 si la encuentra imprima su informacion y si no la encuentra, sale un alert diciendo que no esta.
 lo que hace "toLowerCase" es pasar todas las letras a minuscula, para que si el usuario escribe todo en minuscula o 
-mayuscula lo reconozca igual*/
+mayuscula lo reconozca igual. Para que haya una persistencia del nombre de la ultima provincia buscada
+guardamos en el localStorage la constante name*/
+
 document.getElementById('buscar').addEventListener("click", function () {
     const name = document.getElementById('name').value.toLowerCase();
+        localStorage.setItem('valorEnLS', name);
+        document.getElementById('name').value = ""; 
     const city = provinciasArgentinas.find(city => city.nombre.toLowerCase() === name);
-
+        localStorage.setItem('arregloProvincia', JSON.stringify(city));
+    
     if (city) {
         var vistaA = document.getElementById("vistaA");
         vistaA.innerHTML = `<h1>${city.temperatura} Cº</h1>
@@ -90,6 +95,54 @@ document.getElementById('buscar').addEventListener("click", function () {
             text: 'La informacion solicitada no se encuentra, por favor, vuela a intentarlo!',
         })
     };
+});
+
+//guardo en el localStorage mi arreglo de la provincia buscada, donde convierte mi objeto en una cadena de texto JSON
+//dentro de la funcion esta localStorage.setItem('arregloProvincias', JSON.stringify(city));
+city = JSON.parse(localStorage.getItem('arregloProvincia'));
+
+/*Luego, si es la primera vez que ingresa a la pagina, y se hace click en el boton "Ultima provincia buscada" 
+saldra una alerta avisandonos que no hay dato en ella, pero si ya se busco al menos 1 vez y se cierra la pagina
+al hacer click en "Ultima provincia buscada" nos mostrara el nombre de la ultima provincia ingresada*/
+
+document.getElementById('busquedaAnterior').addEventListener("click", function () {
+    let val = localStorage.getItem('valorEnLS');
+    
+
+    if(!val == true){
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Todavia no ha iniciado una busqueda, por favor, vuela a intentarlo!',
+        })
+        
+    } else {
+        
+        var vistaA = document.getElementById("vistaA");
+        vistaA.innerHTML = `<h1>${city.temperatura} Cº</h1>
+                <h5>Sensacion termica: ${city.sensacionTermica} Cº</h5>
+                <h3>${city.estado}</h3>
+                <h2>${city.nombre}, Argentina</h2>`;
+
+        var humedad = document.getElementById("humedad");
+        humedad.innerHTML = `<h5>Humedad: ${city.humedad} % </h5>`;
+
+        var velocidadViento = document.getElementById("velocidadViento");
+        velocidadViento.innerHTML = `<h5>Velocidad del Viento: ${city.velocidadDelViento} km/h </h5>`;
+
+        var presionDelAire = document.getElementById("presionAire");
+        presionDelAire.innerHTML = `<h5>Presion del Aire: ${city.presionDelAire} mbar </h5>`;
+
+        var visibilidad = document.getElementById("visibilidad");
+        visibilidad.innerHTML = `<h5>Visibilidad: ${city.visibilidad} km </h5>`;
+
+        var indiceUV = document.getElementById("indiceUV");
+        indiceUV.innerHTML = `<h5>Indice UV: ${city.indiceUV} % </h5>`;
+
+        document.getElementById('cartas').style.display = 'block';
+        document.getElementById('cartas').style.display = 'flex';
+    };
+    
 });
 
 /*PASOS PARA EJECUTAR Y MOSTRAR UN RELOJ Y FECHA EN TIEMPO REAL

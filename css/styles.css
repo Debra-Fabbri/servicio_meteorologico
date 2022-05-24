@@ -564,6 +564,7 @@ input {
         justify-content: center;
         align-items: center;
         display: flex;
+        height: 35px;
     }
     .snip1581 {
         height: 100px;
@@ -617,5 +618,7 @@ input {
         margin: 0;
         font-size: 6px;
     }
-    
+    .welcome{
+        font-size: 13px;
+    }
 }
